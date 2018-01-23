@@ -1,0 +1,16 @@
+@(message: String, style: String = "scala") 
+
+@defining(play.core.PlayVersion.current) { version =>
+  <section id="top">
+    <div class="wrapper">
+      <h1>@message</h1>
+    </div>
+  </section>
+
+  <div id="content" class="wrapper doc">
+    <article>
+      <h1>Welcome to Play</h1>
+      Enter content here!
+    </article>
+  </div>
+}
