@@ -1,2 +1,2 @@
 # Teaching-HEIGVD-SCALA-Play-Framework-Examples
-Amazing basic examples of Play Framework applications in Scala!
+Here is an empty working Play Framework project that has been cleaned.
