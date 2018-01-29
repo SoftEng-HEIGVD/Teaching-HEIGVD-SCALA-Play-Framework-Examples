@@ -2,19 +2,21 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@import services.Student
+@import services.Course
+@(message: String, students: Map[Long, Student], courses: Map[Long, Course])
 
 @*
  * Call the `main` template with two arguments. The first
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
+@main(message) {
 
     @*
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    @welcome(message, style = "scala")
+    @welcome(message, students, courses)
 
 }

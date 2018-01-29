@@ -1,0 +1,12 @@
+.things-table {
+    margin: 2em 0 4em 0;
+}
+
+th {
+    font-weight: 600;
+    padding: 8px;
+}
+
+.things-table tr > td:last-child {
+    text-align: right;
+}

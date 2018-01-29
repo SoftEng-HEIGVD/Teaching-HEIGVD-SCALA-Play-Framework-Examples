@@ -12,8 +12,18 @@
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/editablegrid.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
+        <script type="text/javascript" src="@routes.HomeController.javascriptRoutes"></script>
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid_renderers.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid_editors.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid_validators.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid_utils.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/editablegrid_charts.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/actions.js")" type="text/javascript"></script>
     </head>
     <body>
         @* And here's where we render the `Html` object containing

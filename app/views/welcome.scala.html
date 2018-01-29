@@ -1,4 +1,6 @@
-@(message: String, style: String = "scala") 
+@import services.Student
+@import services.Course
+@(message: String, students: Map[Long, Student], courses: Map[Long, Course])
 
 @defining(play.core.PlayVersion.current) { version =>
   <section id="top">
@@ -9,8 +11,50 @@
 
   <div id="content" class="wrapper doc">
     <article>
-      <h1>Welcome to Play</h1>
-      Enter content here!
+      <h1>Students</h1>
+      <table class="things-table" id="table-students">
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Age</th>
+          <th></th>
+        </tr>
+        @for((idStudent, student) <- students) {
+          <tr id="row-student-@idStudent">
+            <td>@student.firstName</td>
+            <td>@student.lastName</td>
+            <td>@student.age</td>
+            <td><a href="">Delete</a></td>
+          </tr>
+        }
+      </table>
+
+      <h1>Courses</h1>
+      <table class="things-table" id="table-courses">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Has apero?</th>
+          <th></th>
+        </tr>
+        @for((idCourse, course) <- courses) {
+          <tr id="row-course-@idCourse">
+            <td>@course.name</td>
+            <td>@course.description</td>
+            <td>
+              @course.hasApero match {
+                case Some(apero) => {
+                  @apero
+                }
+                case None => {
+                  <i>NULL</i> (no spoil!)
+                }
+              }
+            </td>
+            <td><a href="">Delete</a></td>
+          </tr>
+        }
+      </table>
     </article>
   </div>
 }

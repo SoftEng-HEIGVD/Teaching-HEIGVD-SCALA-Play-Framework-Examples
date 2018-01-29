@@ -5,6 +5,18 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
+GET     /students                   controllers.StudentsController.getStudents
+POST    /students                   controllers.StudentsController.createStudent
+GET     /students/:id               controllers.StudentsController.getStudent(id: Long)
+PUT     /students/:id               controllers.StudentsController.updateStudent(id: Long)
+DELETE  /students/:id               controllers.StudentsController.deleteStudent(id: Long)
+GET     /courses                    controllers.CoursesController.getCourses
+POST    /courses                    controllers.CoursesController.createCourse
+GET     /courses/:id                controllers.CoursesController.getCourse(id: Long)
+PUT     /courses/:id                controllers.CoursesController.updateCourse(id: Long)
+DELETE  /courses/:id                controllers.CoursesController.deleteCourse(id: Long)
+
+GET     /javascriptRoutes           controllers.HomeController.javascriptRoutes
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
