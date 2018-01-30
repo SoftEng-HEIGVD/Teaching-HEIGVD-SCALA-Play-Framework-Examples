@@ -1,0 +1,36 @@
+@*
+* This template takes a single argument, a String containing a name to display.
+*@
+@(name: String)
+
+@*
+* Call the `main` template with two arguments. The first argument is a `String` with the
+* title of the page, the second argument is an `Html` object containing the body of the
+* page.
+*@
+@main("The first title of my first page!") {
+    <section id="top">
+        <div class="wrapper">
+            <h1>The first title of my first page!</h1>
+        </div>
+    </section>
+
+    <div id="content" class="wrapper doc">
+        <article>
+            <p>
+                Yay! My name is @name and this is my first Play Framework's page ever!
+            </p>
+            <p>
+                I'm so happy I could cry right now! But first, let us count until 10:
+                <ul>
+                    @for(i <- 1 to 10) {
+                        <li>@i</li>
+                    }
+                </ul>
+            </p>
+            <p>
+                Best... Framework... <strong>Ever</strong>!
+            </p>
+        </article>
+    </div>
+}

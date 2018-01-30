@@ -20,4 +20,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.index("Your new application is ready."))
   }
 
+  /**
+    * Create an Action that renders an HTML page based on the "test" view.
+    * The configuration in the `routes` file means that this method
+    * will be called when the application receives a `GET` request with
+    * a path of `/test`.
+    */
+  def test = Action {
+    Ok(views.html.test("Mordecai"))
+  }
+
 }
