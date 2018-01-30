@@ -1,9 +1,6 @@
-let editableGridStudents;
-let editableGridCourses;
-
 $(function() {
     // Make the students grid editable.
-    editableGridStudents = new EditableGrid("GridStudents", {
+    const editableGridStudents = new EditableGrid("GridStudents", {
         // Called when some value has been modified.
         modelChanged: (rowId, colId, oldValue, newValue, row) => {
             const studentId = parseInt(row.attributes.studentId.value);
@@ -41,7 +38,7 @@ $(function() {
     editableGridStudents.renderGrid();
 
     // Same for the courses
-    editableGridCourses = new EditableGrid("GridCourses", {
+    const editableGridCourses = new EditableGrid("GridCourses", {
         modelChanged: (rowId, colId, oldValue, newValue, row) => {
             const courseId = parseInt(row.attributes.courseId.value);
             const router = jsRoutes.controllers.CoursesController.updateCourse(courseId);
