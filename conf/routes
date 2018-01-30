@@ -3,8 +3,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
+# Pages
 GET     /                           controllers.HomeController.index
+GET     /about                      controllers.HomeController.about
+# REST API endpoints
 GET     /students                   controllers.StudentsController.getStudents
 POST    /students                   controllers.StudentsController.createStudent
 GET     /students/:id               controllers.StudentsController.getStudent(id: Long)
@@ -15,7 +17,7 @@ POST    /courses                    controllers.CoursesController.createCourse
 GET     /courses/:id                controllers.CoursesController.getCourse(id: Long)
 PUT     /courses/:id                controllers.CoursesController.updateCourse(id: Long)
 DELETE  /courses/:id                controllers.CoursesController.deleteCourse(id: Long)
-
+# Play's JavaScript routes manager
 GET     /javascriptRoutes           controllers.HomeController.javascriptRoutes
 
 # Map static resources from the /public folder to the /assets URL path

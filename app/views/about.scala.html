@@ -1,0 +1,22 @@
+@(message: String)
+
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main(message) {
+    @defining(play.core.PlayVersion.current) { version =>
+        <h1>About</h1>
+        <p class="about-text">
+            No student was abused during the making of this quality website.
+        </p>
+        <hr/>
+        <p class="about-inf-text">
+            This page is here to illustrate the Play Framework's routing.
+        </p>
+        <p>
+            <a href="@routes.HomeController.index()">OK, <s>JavaScript</s> Scala rocks, send me back!</a>
+        </p>
+    }
+}

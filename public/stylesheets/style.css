@@ -10,3 +10,17 @@ th {
 .things-table tr > td:last-child {
     text-align: right;
 }
+
+.about-text {
+    font-style: italic;
+    margin: 4em 0;
+}
+
+.about-inf-text {
+    margin: 3.5em 0 3em 0;
+}
+
+s {
+    text-decoration: none;
+    background-image: linear-gradient(transparent 7px, #80c846 7px, #80c846 9px, transparent 9px);
+}

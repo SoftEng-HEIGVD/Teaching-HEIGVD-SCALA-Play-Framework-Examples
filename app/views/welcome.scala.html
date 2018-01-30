@@ -2,15 +2,7 @@
 @import services.Course
 @(message: String, students: Map[Long, Student], courses: Map[Long, Course])
 
-@defining(play.core.PlayVersion.current) { version =>
-  <section id="top">
-    <div class="wrapper">
-      <h1>@message</h1>
-    </div>
-  </section>
-
-  <div id="content" class="wrapper doc">
-    <article>
+  @defining(play.core.PlayVersion.current) { version =>
       <h1>Students</h1>
       <table class="things-table" id="table-students">
         <tr>
@@ -19,12 +11,12 @@
           <th>Age</th>
           <th></th>
         </tr>
-        @for((idStudent, student) <- students) {
-          <tr id="row-student-@idStudent">
-            <td>@student.firstName</td>
-            <td>@student.lastName</td>
-            <td>@student.age</td>
-            <td><a href="">Delete</a></td>
+        @for(((studentId, student), rowId) <- students.zipWithIndex) {
+          <tr id="row-student-@rowId" studentId="@studentId">
+            <td class="student-first-name">@student.firstName</td>
+            <td class="student-last-name">@student.lastName</td>
+            <td class="student-age">@student.age</td>
+            <td><button onclick="deleteStudent(@rowId, @studentId, '@student.firstName')">Delete</button></td>
           </tr>
         }
       </table>
@@ -37,24 +29,31 @@
           <th>Has apero?</th>
           <th></th>
         </tr>
-        @for((idCourse, course) <- courses) {
-          <tr id="row-course-@idCourse">
-            <td>@course.name</td>
-            <td>@course.description</td>
-            <td>
-              @course.hasApero match {
-                case Some(apero) => {
-                  @apero
-                }
-                case None => {
-                  <i>NULL</i> (no spoil!)
-                }
+        @for(((courseId, course), rowId) <- courses.zipWithIndex) {
+          <tr id="row-course-@rowId" courseId="@courseId">
+            <td class="course-name">@course.name</td>
+            <td class="course-description">@course.description</td>
+            <td class="course-has-apero" realValue="@course.hasApero match {
+              case Some(apero) => {@apero}
+              case None => {null}
+            }">
+            @course.hasApero match {
+              case Some(apero) => {
+                @apero
               }
+              case None => {
+                <i>NULL</i> (no spoil!)
+              }
+            }
             </td>
-            <td><a href="">Delete</a></td>
+            <td><button onclick="deleteCourse(@rowId, @courseId, '@course.name')">Delete</button></td>
           </tr>
         }
       </table>
-    </article>
-  </div>
-}
+
+      <p>
+        Add students and even more with the REST API!
+      </p>
+      <br/>
+      <a href="@routes.HomeController.about()">About...</a>
+  }

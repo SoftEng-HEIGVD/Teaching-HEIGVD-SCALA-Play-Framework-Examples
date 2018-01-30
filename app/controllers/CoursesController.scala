@@ -21,7 +21,7 @@ class CoursesController @Inject()(cc: ControllerComponents) extends AbstractCont
   )(unlift(Course.unapply))
 
   implicit val jsonToCourse: Reads[Course] = (
-    (JsPath \ "name").read[String](minLength[String](3) keepAnd maxLength[String](4)) and
+    (JsPath \ "name").read[String](minLength[String](3) keepAnd maxLength[String](5)) and
     (JsPath \ "description").read[String] and
     (JsPath \ "hasApero").readNullable[Boolean]
   )(Course.apply _)

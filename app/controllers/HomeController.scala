@@ -13,6 +13,8 @@ import services.{Course, Student}
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
+  val title = "Ultimate HEIG-VD Manager 2018"
+
   def javascriptRoutes = Action { implicit request =>
     Ok(
       JavaScriptReverseRouter("jsRoutes")(
@@ -37,7 +39,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * a path of `/`.
    */
   def index = Action {
-    Ok(views.html.index("Ultimate HEIG-VD Manager 2018", Student.mapStudents, Course.mapCourses))
+    Ok(views.html.index(title, Student.mapStudents, Course.mapCourses))
+  }
+
+  /**
+    * Call the "about" html template.
+    */
+  def about = Action {
+    Ok(views.html.about(title))
   }
 
 }
