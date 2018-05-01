@@ -1,4 +1,4 @@
-# Play Framework \& Slick
+# Teaching-HEIGVD-SCALA-Play-Framework-Examples
 Here you can find a basic examples of a Scala's Play Framework applications coupled with Slick.
 
 How to setup the database:
