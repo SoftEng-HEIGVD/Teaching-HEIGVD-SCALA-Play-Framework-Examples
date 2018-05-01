@@ -13,9 +13,10 @@ $(function() {
                 contentType: 'application/json',
                 // Ugly hack to collect the student's new attributes.
                 data: JSON.stringify({
-                    firstName: $(`#row-student-${rowId} > .student-first-name`).text(),
-                    lastName: $(`#row-student-${rowId} > .student-last-name`).text(),
-                    age: parseInt($(`#row-student-${rowId} > .student-age`).text())
+                    firstName: $(`#row-student-${studentId} > .student-first-name`).text(),
+                    lastName: $(`#row-student-${studentId} > .student-last-name`).text(),
+                    age: parseInt($(`#row-student-${studentId} > .student-age`).text()),
+                    isInsolent: $(`#row-student-${studentId} > .student-is-insolent`).text() === 'true'
                 })
             }).done((data, textStatus, jqXHR) => {
                 console.log(`Student #${studentId} successfully updated.`)
@@ -43,12 +44,12 @@ $(function() {
             const courseId = parseInt(row.attributes.courseId.value);
             const router = jsRoutes.controllers.CoursesController.updateCourse(courseId);
             let courseData = {
-                name: $(`#row-course-${rowId} > .course-name`).text(),
-                description: $(`#row-course-${rowId} > .course-description`).text()
+                name: $(`#row-course-${courseId} > .course-name`).text(),
+                description: $(`#row-course-${courseId} > .course-description`).text()
             };
 
-            if ($(`#row-course-${rowId} > .course-has-apero`).attr('realValue') !== 'null') {
-                courseData.hasApero = $(`#row-course-${rowId} > .course-has-apero`).attr('realValue') === 'true';
+            if ($(`#row-course-${courseId} > .course-has-apero`).attr('realValue') !== 'null') {
+                courseData.hasApero = $(`#row-course-${courseId} > .course-has-apero`).attr('realValue') === 'true';
             }
 
             $.ajax({
@@ -75,7 +76,7 @@ $(function() {
     editableGridCourses.renderGrid();
 });
 
-function deleteStudent(rowId, studentId, studentFirstName) {
+function deleteStudent(studentId, studentFirstName) {
     if (confirm(`Are you sure you want to delete the poor ${studentFirstName}?`)) {
         const router = jsRoutes.controllers.StudentsController.deleteStudent(studentId);
 
@@ -85,7 +86,7 @@ function deleteStudent(rowId, studentId, studentFirstName) {
             url: router.url
         }).done((data, textStatus, jqXHR) => {
             console.log(`Student #${studentId} successfully deleted.`)
-            $(`#row-student-${rowId}`).remove();
+            $(`#row-student-${studentId}`).remove();
         }).fail((jqXHR, textStatus, errorThrown) => {
             console.log(jqXHR, textStatus, errorThrown);
             alert('An error occurred when deleting the student, please retry.');
@@ -93,7 +94,7 @@ function deleteStudent(rowId, studentId, studentFirstName) {
     }
 }
 
-function deleteCourse(rowId, courseId, courseName) {
+function deleteCourse(courseId, courseName) {
     if (courseName === 'SCALA') {
         alert('Sorry, you cannot delete the SCALA course, since it is immuable in time. Huehuehue.');
     } else if (confirm(`Are you sure you want to delete ${courseName}, its poor assistant and its poor professor?`)) {
@@ -106,7 +107,7 @@ function deleteCourse(rowId, courseId, courseName) {
             url: router.url
         }).done((data, textStatus, jqXHR) => {
             console.log(`Course #${courseId} successfully deleted.`)
-            $(`#row-course-${rowId}`).remove();
+            $(`#row-course-${courseId}`).remove();
         }).fail((jqXHR, textStatus, errorThrown) => {
             console.log(jqXHR, textStatus, errorThrown);
             alert('An error occurred when deleting the course, please retry.');

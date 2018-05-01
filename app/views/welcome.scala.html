@@ -15,8 +15,8 @@
             <td class="student-first-name">@student.firstName</td>
             <td class="student-last-name">@student.lastName</td>
             <td class="student-age">@student.age</td>
-            <td>@student.isInsolent</td>
-            <td><button onclick="deleteStudent(@student.id, @student.id, '@student.firstName')">Delete</button></td>
+            <td class="student-is-insolent">@student.isInsolent</td>
+            <td><button onclick="deleteStudent(@student.id, '@student.firstName')">Delete</button></td>
           </tr>
         }
       </table>
@@ -46,7 +46,7 @@
                   }
               }
               </td>
-              <td><button onclick="deleteCourse(@course.id, @course.id, '@course.name')">Delete</button></td>
+              <td><button onclick="deleteCourse(@course.id, '@course.name')">Delete</button></td>
           </tr>
         }
       </table>

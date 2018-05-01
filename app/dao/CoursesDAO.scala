@@ -32,7 +32,8 @@ trait CoursesComponent {
 // driver. The class extends the courses' query table and loads the JDBC profile configured in the application's
 // configuration file.
 @Singleton
-class CoursesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) extends CoursesComponent with StudentsComponent with CoursesStudentsComponent with HasDatabaseConfigProvider[JdbcProfile] {
+class CoursesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext)
+  extends CoursesComponent with StudentsComponent with CoursesStudentsComponent with HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
 
   // Get the object-oriented list of courses directly from the query table.
