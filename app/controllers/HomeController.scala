@@ -1,17 +1,18 @@
 package controllers
 
+import dao.{CoursesDAO, StudentsDAO}
 import javax.inject._
-
 import play.api.mvc._
 import play.api.routing.JavaScriptReverseRouter
-import services.{Course, Student}
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(cc: ControllerComponents, studentDAO: StudentsDAO, coursesDAO: CoursesDAO) extends AbstractController(cc) {
 
   val title = "Ultimate HEIG-VD Manager 2018"
 
@@ -38,8 +39,15 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index = Action {
-    Ok(views.html.index(title, Student.mapStudents, Course.mapCourses))
+  def index = Action.async { implicit request =>
+    val studentsList = studentDAO.list()
+    val coursesList = coursesDAO.list()
+
+    // Wait for the promises to resolve, then return the list of students and courses.
+    for {
+      students <- studentsList
+      courses <- coursesList
+    } yield Ok(views.html.index(title, students, courses))
   }
 
   /**

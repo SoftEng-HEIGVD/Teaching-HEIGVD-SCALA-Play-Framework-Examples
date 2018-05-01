@@ -2,9 +2,7 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@import services.Student
-@import services.Course
-@(message: String, students: Map[Long, Student], courses: Map[Long, Course])
+@(message: String, students: Seq[Student], courses: Seq[Course])
 
 @*
  * Call the `main` template with two arguments. The first
