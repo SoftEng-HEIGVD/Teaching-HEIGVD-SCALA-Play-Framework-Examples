@@ -76,13 +76,13 @@ class CoursesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvide
     db.run(insertQuery += course)
   }
 
-  /** Update a course. */
+  /** Update a course, then return an integer that indicates if the course was found (1) or not (0). */
   def update(id: Long, course: Course): Future[Int] = {
     val courseToUpdate: Course = course.copy(Some(id))
     db.run(courses.filter(_.id === id).update(courseToUpdate))
   }
 
-  /** Delete a course. */
+  /** Delete a course, then return an integer that indicates if the course was found (1) or not (0) */
   def delete(id: Long): Future[Int] =
     db.run(courses.filter(_.id === id).delete)
 }
