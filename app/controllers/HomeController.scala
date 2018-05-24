@@ -2,6 +2,7 @@ package controllers
 
 import dao.{CoursesDAO, StudentsDAO}
 import javax.inject._
+import models.Student
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
@@ -80,6 +81,11 @@ class HomeController @Inject()(cc: ControllerComponents, studentDAO: StudentsDAO
     */
   def postStudent = Action { implicit request =>
     val studentRequest = studentForm.bindFromRequest.get
+
+    // Insert the user in the database
+    val student = new Student(None, studentRequest.firstName, studentRequest.lastName, studentRequest.age, false)
+    studentDAO.insert(student)
+
     // Just display the entered values
     Ok(s"firstName: '${studentRequest.firstName}', lastName: '${studentRequest.lastName}', age: '${studentRequest.age}'")
   }
