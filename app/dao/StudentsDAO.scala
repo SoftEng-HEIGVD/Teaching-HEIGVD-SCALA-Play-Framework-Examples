@@ -24,6 +24,8 @@ trait StudentsComponent {
     // Map the attributes with the model; the ID is optional.
     def * = (id.?, firstName, lastName, age, isInsolent) <> (Student.tupled, Student.unapply)
   }
+
+  lazy val students = TableQuery[StudentsTable]
 }
 
 // This class contains the object-oriented list of students and offers methods to query the data.
@@ -33,9 +35,6 @@ trait StudentsComponent {
 @Singleton
 class StudentsDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) extends StudentsComponent with HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
-
-  // Get the object-oriented list of students directly from the query table.
-  val students = TableQuery[StudentsTable]
 
   /** Retrieve the list of students */
   def list(): Future[Seq[Student]] = {

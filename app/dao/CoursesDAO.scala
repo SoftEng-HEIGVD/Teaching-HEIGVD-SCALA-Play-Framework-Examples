@@ -25,6 +25,8 @@ trait CoursesComponent {
     def * = (id.?, name, description, hasApero) <> (Course.tupled, Course.unapply)
   }
 
+  lazy val courses = TableQuery[CoursesTable]
+
 }
 
 // This class contains the object-oriented list of courses and offers methods to query the data.
@@ -35,11 +37,6 @@ trait CoursesComponent {
 class CoursesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext)
   extends CoursesComponent with StudentsComponent with CoursesStudentsComponent with HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
-
-  // Get the object-oriented list of courses directly from the query table.
-  val courses = TableQuery[CoursesTable]
-  val students = TableQuery[StudentsTable]
-  val coursesStudents = TableQuery[CoursesStudentsTable]
 
   /** Retrieve the list of courses sorted by name */
   def list(): Future[Seq[Course]] = {
@@ -64,7 +61,7 @@ class CoursesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvide
   def getStudentsOfCourse(id: Long): Future[Seq[Student]] = {
     val query = for {
       courseStudent <- coursesStudents
-      student <- students if courseStudent.studentId === student.id
+      student <- courseStudent.student
     } yield student
 
     db.run(query.result)
