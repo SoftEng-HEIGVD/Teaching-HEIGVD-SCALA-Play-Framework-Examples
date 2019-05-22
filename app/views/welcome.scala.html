@@ -1,4 +1,4 @@
-@(message: String, students: Seq[Student], courses: Seq[Course])
+@(message: String, students: Seq[Student], courses: Seq[Course], studentsInvitations: Map[Student, Seq[Course]])
 
   @defining(play.core.PlayVersion.current) { version =>
       <h1>Students</h1>
@@ -50,6 +50,21 @@
           </tr>
         }
       </table>
+
+<h1>Who's going to which apero ?</h1>
+<p>Insolent student are not invited to their courses' apero.</p>
+<table class="things-table" id="table-courses-student">
+    <tr>
+        <th>Student</th>
+        <th>Apero(s)</th>
+    </tr>
+    @for((student, courses) <- studentsInvitations) {
+    <tr>
+        <td>@student.firstName @student.lastName</td>
+        <td>@courses.map(_.name).mkString(", ")</td>
+    </tr>
+    }
+</table>
 
       Add your <strong>OWN</strong> student!
       <!-- You may need to compile the application so the IDE will recognize the "postStudent" route. -->

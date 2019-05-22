@@ -1,6 +1,6 @@
 package controllers
 
-import dao.{CoursesDAO, StudentsDAO}
+import dao.{CoursesDAO, CoursesStudentsDAO, StudentsDAO}
 import javax.inject._
 import models.Student
 import play.api.data._
@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents, studentDAO: StudentsDAO, coursesDAO: CoursesDAO) extends AbstractController(cc) {
+class HomeController @Inject()(cc: ControllerComponents, studentDAO: StudentsDAO, coursesDAO: CoursesDAO, coursesStudentsDAO: CoursesStudentsDAO) extends AbstractController(cc) {
 
   val title = "Ultimate HEIG-VD Manager 2018"
 
@@ -58,12 +58,14 @@ class HomeController @Inject()(cc: ControllerComponents, studentDAO: StudentsDAO
   def index = Action.async { implicit request =>
     val studentsList = studentDAO.list()
     val coursesList = coursesDAO.list()
+    val studentsInvitationsMap = coursesStudentsDAO.listInvitations()
 
     // Wait for the promises to resolve, then return the list of students and courses.
     for {
       students <- studentsList
       courses <- coursesList
-    } yield Ok(views.html.index(title, students, courses))
+      studentsInvitations <- studentsInvitationsMap
+    } yield Ok(views.html.index(title, students, courses, studentsInvitations))
   }
 
   /**
